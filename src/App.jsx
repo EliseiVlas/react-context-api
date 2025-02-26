@@ -1,34 +1,52 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// import degli elementi della libreria di gestione delle rotte
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
+// importiamo il contesto creato (global)
+import GlobalContext from "./context/GlobalContest";
+
+// gestione dati pizze per listato
+import { useState, useEffect } from 'react';
+import axios from "axios";
+
+// pages
+import PostCard from "./pages/PostCard";
+import PostList from "./pages/PostList";
+import PostPage from "./pages/PostPage";
+import ChiSiamo from "./pages/ChiSiamo";
+import About from "./pages/About";
+
+
+
+
 
 function App() {
-  const [count, setCount] = useState(0)
+
+      // stato dei piatti
+      const [piatti, setPiatti] = useState([]);
+
+
+      // funzione di gestione chiamata all'API
+      function fetchPiatti() {
+          axios.get("http://localhost:3000/piatti/")
+              .then((res) =>
+                  setPiatti(res.data)
+              )
+      }
+  
+      // Solo al primo rendering
+      useEffect(fetchPiatti, []);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <GlobalContext.Provider value={piatti}>
+      <BrowserRouter>
+        <Routes>
+            <Route path="/" element={<PostPage />} />
+            <Route path="/chi-siamo" element={<ChiSiamo />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/Ristorante" element={<Navigate to="/" />} />
+        </Routes>
+      </BrowserRouter >
+    </GlobalContext.Provider>
   )
 }
 
