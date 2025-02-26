@@ -12,13 +12,14 @@ export default function PostList() {
     const { piatti } = useContext(GlobalContext);
 
     return (
-        <>
+        <div>
             {
-                piatti.map((menu) => (
-                    <PostCard key={menu.id} menu={menu} />
+                piatti.map((piatto) => (
+                    <PostCard key={piatto.id} piatti={piatto} />
                 ))
             }
-        </>
+        </div>
+        
     )
 
 }

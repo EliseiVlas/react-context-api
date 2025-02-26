@@ -9,15 +9,9 @@ import { useState, useEffect } from 'react';
 import axios from "axios";
 
 // pages
-import PostCard from "./pages/PostCard";
-import PostList from "./pages/PostList";
 import PostPage from "./pages/PostPage";
 import ChiSiamo from "./pages/ChiSiamo";
 import About from "./pages/About";
-
-
-
-
 
 function App() {
 
@@ -37,7 +31,7 @@ function App() {
       useEffect(fetchPiatti, []);
 
   return (
-    <GlobalContext.Provider value={piatti}>
+    <GlobalContext.Provider value={{piatti}}>
       <BrowserRouter>
         <Routes>
             <Route path="/" element={<PostPage />} />

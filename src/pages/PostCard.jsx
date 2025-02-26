@@ -1,16 +1,14 @@
-
-
 const PostCard = (props) => {
 
     // destructuring dell'oggetto props
-    const menu = props;
+    const { piatti } = props;
 
     return (
         <>
             <div className='pizzaItem'>
-                <h2>{menu.title}</h2>
-                <img src={menu.image} alt={menu.title} />
-                <p>{menu.content}</p>
+                <h2>{piatti.title}</h2>
+                <img src={piatti.image} alt={piatti.title} />
+                <p>{piatti.content}</p>
             </div>
 
         </>
